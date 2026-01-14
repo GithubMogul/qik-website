@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>QIK — Payment (Escrow Demo)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Inter','system-ui','sans-serif'], display: ['Poppins','system-ui','sans-serif'] },
+          colors: {
+            qikNavy:'#061338', qikCard:'#0B214F', qikLine:'rgba(255,255,255,.08)',
+            qikText:'#D6F0FF', qikMuted:'#A9D9FF', qikIce:'#BFE8FF', qikIce2:'#8ED5FF'
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body{
+      background:
+        radial-gradient(1100px 650px at 20% 10%, rgba(142,213,255,.16), transparent 55%),
+        radial-gradient(900px 500px at 80% 25%, rgba(191,232,255,.10), transparent 55%),
+        linear-gradient(180deg, #061338 0%, #061338 100%);
+    }
+    .glass{ background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.10); }
+    .btn-ice{ background:linear-gradient(135deg, rgba(191,232,255,.95), rgba(142,213,255,.95)); color:#04102C; }
+    .btn-ice:hover{ filter:brightness(1.03); transform:translateY(-1px); }
+    .btn-outline{ background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.14); }
+    .btn-outline:hover{ border-color:rgba(191,232,255,.55); background:rgba(255,255,255,.06); transform:translateY(-1px); }
+  </style>
+</head>
+
+<body class="text-qikText font-sans">
+  <header class="sticky top-0 z-30 backdrop-blur bg-qikNavy/70 border-b border-qikLine">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between">
+      <a href="qik.html#home" class="flex items-center gap-3">
+        <img src="Logo A10.jpg" class="w-10 h-10 rounded-2xl object-cover border border-white/10" alt="QIK logo">
+        <span class="font-display text-xl font-semibold tracking-tight">QIK</span>
+      </a>
+
+      <nav class="hidden md:flex items-center gap-6 text-sm text-qikMuted">
+        <a href="chat.html" class="hover:text-qikIce transition">Mock Chat</a>
+        <a href="contract.html" class="hover:text-qikIce transition">Contract</a>
+        <span class="text-qikIce font-medium">Payment</span>
+        <a href="dashboard.html" class="hover:text-qikIce transition">Dashboard</a>
+      </nav>
+
+      <a href="dashboard.html" class="text-xs sm:text-sm px-4 py-2 rounded-full btn-outline transition">Dashboard</a>
+    </div>
+  </header>
+
+  <main class="max-w-3xl mx-auto px-4 sm:px-6 py-10">
+    <h1 class="font-display text-3xl sm:text-4xl font-semibold">Escrow Payment (Demo)</h1>
+    <p class="text-sm text-qikMuted mt-2">Simulated escrow: user pays → held → released after satisfaction.</p>
+
+    <div class="mt-6 grid gap-6">
+      <div class="rounded-3xl bg-qikCard/55 border border-qikLine p-6 shadow-2xl shadow-black/60">
+        <div class="flex items-center justify-between mb-3 text-xs text-qikMuted">
+          <span>Payment Status</span>
+          <span class="px-2 py-1 rounded-full glass text-[10px]">Mock</span>
+        </div>
+
+        <div class="flex items-center gap-2 text-sm">
+          <span class="text-qikMuted">Status:</span>
+          <span id="status" class="font-semibold text-qikIce">Payment Pending</span>
+        </div>
+
+        <div class="mt-3 text-[11px] text-qikMuted" id="statusLine">
+          Waiting for user checkout.
+        </div>
+      </div>
+
+      <div class="rounded-3xl bg-qikCard/55 border border-qikLine p-6 shadow-2xl shadow-black/60">
+        <h2 class="font-display text-xl font-semibold">QIK Checkout Form</h2>
+        <p class="text-xs text-qikMuted mt-1">Demo form (in real product: Stripe / PayNow QR).</p>
+
+        <form id="payForm" class="mt-4 grid sm:grid-cols-2 gap-3">
+          <div class="sm:col-span-2">
+            <label class="text-xs text-qikMuted">Email</label>
+            <input id="email" type="email" required
+                   class="mt-1 w-full rounded-xl bg-white/5 border border-qikLine px-4 py-3 text-sm outline-none focus:border-qikIce/60"
+                   placeholder="you@example.com" />
+          </div>
+
+          <div>
+            <label class="text-xs text-qikMuted">Amount (SGD)</label>
+            <input id="amount" type="number" min="1" required
+                   class="mt-1 w-full rounded-xl bg-white/5 border border-qikLine px-4 py-3 text-sm outline-none focus:border-qikIce/60"
+                   placeholder="180" />
+          </div>
+
+          <div>
+            <label class="text-xs text-qikMuted">Payment method (demo)</label>
+            <select id="method" class="mt-1 w-full rounded-xl bg-white/5 border border-qikLine px-4 py-3 text-sm outline-none focus:border-qikIce/60">
+              <option>PayNow</option>
+              <option>Stripe</option>
+              <option>Card</option>
+            </select>
+          </div>
+
+          <div class="sm:col-span-2 mt-2 flex flex-wrap gap-3">
+            <button type="submit" class="px-6 py-3 rounded-full btn-ice font-semibold transition">
+              Submit Payment (Hold in Escrow)
+            </button>
+
+            <button id="releaseBtn" type="button"
+                    class="hidden px-6 py-3 rounded-full btn-outline font-semibold transition">
+              Release Payment
+            </button>
+
+            <a href="chat.html" class="px-6 py-3 rounded-full btn-outline transition">
+              Back to Chat
+            </a>
+          </div>
+
+          <p class="sm:col-span-2 text-[11px] text-qikMuted mt-2">
+            Demo note: “Release Payment” is user-only in the real product.
+          </p>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    const KEY_CONTRACT = "qik_contract_v1";
+    const KEY_PAYMENT  = "qik_payment_v1";
+
+    const statusEl = document.getElementById("status");
+    const statusLine = document.getElementById("statusLine");
+    const payForm = document.getElementById("payForm");
+    const releaseBtn = document.getElementById("releaseBtn");
+
+    function setStatus(s) {
+      statusEl.textContent = s;
+      statusEl.className = "font-semibold text-qikIce";
+    }
+
+    function load() {
+      const contract = JSON.parse(localStorage.getItem(KEY_CONTRACT) || "null");
+      const payment = JSON.parse(localStorage.getItem(KEY_PAYMENT) || "null");
+
+      if (!contract || contract.status !== "SIGNED") {
+        setStatus("Payment Pending");
+        statusLine.textContent = "No signed contract found. Please sign the contract first.";
+        return;
+      }
+
+      if (!payment) {
+        setStatus("Payment Pending");
+        statusLine.textContent = "Signed contract found. Complete checkout to hold funds in escrow.";
+        document.getElementById("amount").value = 180;
+        return;
+      }
+
+      setStatus(payment.status || "Payment Pending");
+      statusLine.textContent = payment.note || "";
+      if (payment.status === "Payment Held in Escrow") releaseBtn.classList.remove("hidden");
+      if (payment.status === "Payment Released") releaseBtn.classList.add("hidden");
+    }
+
+    payForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const contract = JSON.parse(localStorage.getItem(KEY_CONTRACT) || "null");
+      if (!contract || contract.status !== "SIGNED") {
+        alert("Please sign the contract first.");
+        return;
+      }
+
+      const payment = {
+        id: "PAY-" + Math.random().toString(16).slice(2,8).toUpperCase(),
+        email: document.getElementById("email").value.trim(),
+        amount: Number(document.getElementById("amount").value),
+        method: document.getElementById("method").value,
+        status: "Payment Held in Escrow",
+        note: "Funds received and held in escrow (demo). Release after shoot completion.",
+        timestamp: new Date().toISOString()
+      };
+
+      localStorage.setItem(KEY_PAYMENT, JSON.stringify(payment));
+      releaseBtn.classList.remove("hidden");
+      load();
+      alert("Payment submitted (demo). Funds held in escrow.");
+    });
+
+    releaseBtn.addEventListener("click", () => {
+      const payment = JSON.parse(localStorage.getItem(KEY_PAYMENT) || "null");
+      if (!payment) return;
+      payment.status = "Payment Released";
+      payment.note = "Funds released to photographer (minus platform commission).";
+      payment.released_at = new Date().toISOString();
+      localStorage.setItem(KEY_PAYMENT, JSON.stringify(payment));
+      load();
+      setTimeout(() => window.location.href = "reviews.html?from=payment&photographer=Jordan%20Lee", 500);
+    });
+
+    load();
+  </script>
+</body>
+</html>

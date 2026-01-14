@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>QIK – Mock Chat</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Inter','system-ui','sans-serif'], display: ['Poppins','system-ui','sans-serif'] },
+          colors: {
+            qikNavy:'#061338', qikCard:'#0B214F', qikLine:'rgba(255,255,255,.08)',
+            qikText:'#D6F0FF', qikMuted:'#A9D9FF', qikIce:'#BFE8FF', qikIce2:'#8ED5FF'
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body{
+      background:
+        radial-gradient(1200px 650px at 20% 10%, rgba(142,213,255,.16), transparent 55%),
+        radial-gradient(900px 500px at 80% 25%, rgba(191,232,255,.10), transparent 55%),
+        linear-gradient(180deg, #061338 0%, #061338 100%);
+    }
+    .glass{ background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.10); }
+    .btn-ice{ background:linear-gradient(135deg, rgba(191,232,255,.95), rgba(142,213,255,.95)); color:#04102C; }
+    .btn-ice:hover{ filter:brightness(1.03); transform:translateY(-1px); }
+    .btn-outline{ background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.14); }
+    .btn-outline:hover{ border-color:rgba(191,232,255,.55); background:rgba(255,255,255,.06); transform:translateY(-1px); }
+    .msg{ animation: pop .25s ease }
+    @keyframes pop{ from{opacity:0; transform:translateY(6px)} to{opacity:1; transform:translateY(0)} }
+  </style>
+</head>
+
+<body class="text-qikText font-sans">
+  <header class="sticky top-0 z-30 backdrop-blur bg-qikNavy/70 border-b border-qikLine">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between">
+      <a href="qik.html#home" class="flex items-center gap-3">
+        <img src="Logo A10.jpg" class="w-10 h-10 rounded-2xl object-cover border border-white/10" alt="QIK logo">
+        <span class="font-display text-xl font-semibold tracking-tight">QIK</span>
+      </a>
+
+      <nav class="hidden md:flex items-center gap-6 text-sm text-qikMuted">
+        <a href="qik.html" class="hover:text-qikIce transition">Home</a>
+        <a href="for-creators.html" class="hover:text-qikIce transition">For Creators</a>
+        <a href="for-photographers.html" class="hover:text-qikIce transition">For Photographers</a>
+        <span class="text-qikIce font-medium">Mock Chat</span>
+        <a href="dashboard.html" class="hover:text-qikIce transition">Dashboard</a>
+      </nav>
+
+      <button id="resetBtn" class="text-xs sm:text-sm px-4 py-2 rounded-full btn-outline transition">
+        Reset Demo Data
+      </button>
+    </div>
+  </header>
+
+  <main class="max-w-4xl mx-auto px-4 sm:px-6 py-8">
+    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-4">
+      <div>
+        <h1 class="font-display text-2xl sm:text-3xl font-semibold">Chat with Jordan Lee</h1>
+        <p class="text-xs text-qikMuted">Agree details → Confirm booking → Contract → Checkout → Release → Review</p>
+      </div>
+
+      <div class="flex gap-2 text-[11px]">
+        <div class="px-3 py-1 rounded-full glass" id="chipContract">Contract: Not signed</div>
+        <div class="px-3 py-1 rounded-full glass" id="chipPayment">Payment: Pending</div>
+      </div>
+    </div>
+
+    <div class="rounded-3xl bg-qikCard/55 border border-qikLine overflow-hidden shadow-2xl shadow-black/60">
+      <div class="p-4 border-b border-qikLine flex items-center justify-between">
+        <div class="text-xs text-qikMuted">
+          Shoot request: <span class="text-qikText font-medium">Cafe reels • Bugis • 1.5h • $180</span>
+        </div>
+        <a href="reviews.html?photographer=Jordan%20Lee" class="text-xs px-3 py-2 rounded-full btn-outline transition">
+          View Reviews
+        </a>
+      </div>
+
+      <div id="messages" class="p-4 space-y-3 h-[55vh] overflow-y-auto"></div>
+
+      <div class="p-4 border-t border-qikLine">
+        <div class="flex flex-wrap gap-2 mb-3">
+          <button id="agreeBtn" class="text-xs px-3 py-2 rounded-full btn-ice font-semibold transition">
+            Agree details
+          </button>
+          <button id="confirmBtn" class="hidden text-xs px-3 py-2 rounded-full btn-outline font-semibold transition">
+            Confirm Booking (Generate Contract)
+          </button>
+
+          <a id="proceedPaymentBtn" href="payment.html" class="hidden text-xs px-3 py-2 rounded-full btn-outline transition">
+            Proceed to Payment
+          </a>
+
+          <a href="dashboard.html" class="text-xs px-3 py-2 rounded-full btn-outline transition">
+            Open Dashboard
+          </a>
+        </div>
+
+        <div class="flex gap-2">
+          <input id="chatInput" class="flex-1 rounded-xl bg-white/5 border border-qikLine px-4 py-3 text-sm outline-none focus:border-qikIce/60"
+                 placeholder="Type a message (demo)..." />
+          <button id="sendBtn" class="px-4 py-3 rounded-xl btn-outline transition text-sm font-semibold">
+            Send
+          </button>
+        </div>
+        <p class="text-[10px] text-qikMuted mt-2">Mock UI only. Contract/payment/reviews are simulated.</p>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    const KEY_CONTRACT = "qik_contract_v1";
+    const KEY_PAYMENT  = "qik_payment_v1";
+    const KEY_REVIEWS  = "qik_reviews_v1";
+
+    const messages = document.getElementById("messages");
+    const agreeBtn = document.getElementById("agreeBtn");
+    const confirmBtn = document.getElementById("confirmBtn");
+    const proceedPaymentBtn = document.getElementById("proceedPaymentBtn");
+    const chipContract = document.getElementById("chipContract");
+    const chipPayment = document.getElementById("chipPayment");
+
+    const seed = [
+      { from: "photographer", text: "Hey! I can do cafe reels + close-ups. What vibe are you going for?" },
+      { from: "user", text: "Warm + cozy. 1.5h in Bugis, weekday evening." },
+      { from: "photographer", text: "Nice. $180 for 1.5h, includes 10 photos + 1 reel edit. Works?" },
+      { from: "user", text: "Yes. Time 6pm, Bugis. Let’s lock it in." }
+    ];
+
+    function addMsg(from, text) {
+      const wrap = document.createElement("div");
+      wrap.className = "msg flex " + (from === "user" ? "justify-end" : "justify-start");
+      wrap.innerHTML = `
+        <div class="${from === "user" ? "bg-white/5 border-qikLine" : "bg-white/5 border-qikLine"} border rounded-2xl px-4 py-3 max-w-[80%]">
+          <div class="text-xs text-qikText">${text}</div>
+        </div>
+      `;
+      messages.appendChild(wrap);
+      messages.scrollTop = messages.scrollHeight;
+    }
+
+    function updateChipsAndButtons() {
+      const contract = JSON.parse(localStorage.getItem(KEY_CONTRACT) || "null");
+      const payment = JSON.parse(localStorage.getItem(KEY_PAYMENT) || "null");
+
+      chipContract.textContent = (contract?.status === "SIGNED") ? "Contract: Signed" : "Contract: Not signed";
+      chipPayment.textContent = payment?.status ? ("Payment: " + payment.status) : "Payment: Pending";
+
+      if (contract?.status === "SIGNED") {
+        proceedPaymentBtn.classList.remove("hidden");
+        confirmBtn.classList.add("hidden");
+      }
+    }
+
+    seed.forEach(m => addMsg(m.from, m.text));
+    updateChipsAndButtons();
+
+    agreeBtn.addEventListener("click", () => {
+      addMsg("photographer", "Great — details confirmed. I’m sending the contract now.");
+      confirmBtn.classList.remove("hidden");
+      agreeBtn.classList.add("hidden");
+    });
+
+    confirmBtn.addEventListener("click", () => {
+      localStorage.setItem("qik_pending_details_v1", JSON.stringify({
+        time: "6:00 PM",
+        location: "Bugis, Singapore",
+        style: "Warm cafe reels + macro close-ups",
+        price: "180",
+        addons: "10 photos + 1 reel edit",
+        photographer: "Jordan Lee",
+        client: "QIK Demo Client"
+      }));
+      window.location.href = "contract.html";
+    });
+
+    document.getElementById("sendBtn").addEventListener("click", () => {
+      const v = document.getElementById("chatInput").value.trim();
+      if (!v) return;
+      addMsg("user", v);
+      document.getElementById("chatInput").value = "";
+      setTimeout(() => addMsg("photographer", "Got it — noted ✅ (demo response)"), 400);
+    });
+
+    document.getElementById("resetBtn").addEventListener("click", () => {
+      localStorage.removeItem(KEY_CONTRACT);
+      localStorage.removeItem(KEY_PAYMENT);
+      localStorage.removeItem(KEY_REVIEWS);
+      localStorage.removeItem("qik_pending_details_v1");
+      location.reload();
+    });
+  </script>
+</body>
+</html>

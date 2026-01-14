@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>QIK — Ratings & Reviews</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Inter','system-ui','sans-serif'], display: ['Poppins','system-ui','sans-serif'] },
+          colors: {
+            qikNavy:'#061338', qikCard:'#0B214F', qikLine:'rgba(255,255,255,.08)',
+            qikText:'#D6F0FF', qikMuted:'#A9D9FF', qikIce:'#BFE8FF', qikIce2:'#8ED5FF'
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body{
+      background:
+        radial-gradient(1100px 650px at 20% 10%, rgba(142,213,255,.16), transparent 55%),
+        radial-gradient(900px 500px at 80% 25%, rgba(191,232,255,.10), transparent 55%),
+        linear-gradient(180deg, #061338 0%, #061338 100%);
+    }
+    .glass{ background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.10); }
+    .btn-ice{ background:linear-gradient(135deg, rgba(191,232,255,.95), rgba(142,213,255,.95)); color:#04102C; }
+    .btn-ice:hover{ filter:brightness(1.03); transform:translateY(-1px); }
+    .btn-outline{ background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.14); }
+    .btn-outline:hover{ border-color:rgba(191,232,255,.55); background:rgba(255,255,255,.06); transform:translateY(-1px); }
+  </style>
+</head>
+
+<body class="text-qikText font-sans">
+  <header class="sticky top-0 z-30 backdrop-blur bg-qikNavy/70 border-b border-qikLine">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between">
+      <a href="qik.html#home" class="flex items-center gap-3">
+        <img src="Logo A10.jpg" class="w-10 h-10 rounded-2xl object-cover border border-white/10" alt="QIK logo">
+        <span class="font-display text-xl font-semibold tracking-tight">QIK</span>
+      </a>
+
+      <nav class="hidden md:flex items-center gap-6 text-sm text-qikMuted">
+        <a href="chat.html" class="hover:text-qikIce transition">Mock Chat</a>
+        <a href="payment.html" class="hover:text-qikIce transition">Payment</a>
+        <span class="text-qikIce font-medium">Reviews</span>
+        <a href="dashboard.html" class="hover:text-qikIce transition">Dashboard</a>
+      </nav>
+
+      <a href="chat.html" class="text-xs sm:text-sm px-4 py-2 rounded-full btn-outline transition">Back</a>
+    </div>
+  </header>
+
+  <main class="max-w-4xl mx-auto px-4 sm:px-6 py-10">
+    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+      <div>
+        <h1 id="name" class="font-display text-3xl sm:text-4xl font-semibold">Photographer Reviews</h1>
+        <p class="text-sm text-qikMuted mt-1">Transparent feedback (demo). Latest 3 shown.</p>
+      </div>
+
+      <div class="rounded-2xl bg-qikCard/55 border border-qikLine p-4 text-center shadow-2xl shadow-black/60">
+        <div class="text-xs text-qikMuted">Average rating</div>
+        <div id="avg" class="text-3xl font-display font-semibold mt-1">—</div>
+        <div class="text-[11px] text-qikMuted">Rounded to 0.1</div>
+      </div>
+    </div>
+
+    <div class="mt-6 grid lg:grid-cols-2 gap-6">
+      <div class="rounded-3xl bg-qikCard/55 border border-qikLine p-6 shadow-2xl shadow-black/60">
+        <h2 class="font-display text-xl font-semibold">Recent reviews</h2>
+        <div id="list" class="mt-4 space-y-3"></div>
+        <p class="text-[11px] text-qikMuted mt-4">Only completed sessions can review (simulated via payment release).</p>
+      </div>
+
+      <div class="rounded-3xl bg-qikCard/55 border border-qikLine p-6 shadow-2xl shadow-black/60">
+        <h2 class="font-display text-xl font-semibold">Leave a review</h2>
+        <p id="gate" class="mt-2 text-xs text-qikMuted">To submit a review, complete the demo flow and release payment.</p>
+
+        <div class="mt-4 grid gap-3">
+          <div>
+            <label class="text-xs text-qikMuted">Rating (1–5)</label>
+            <input id="rating" type="number" min="1" max="5"
+                   class="mt-1 w-full rounded-xl bg-white/5 border border-qikLine px-4 py-3 text-sm outline-none focus:border-qikIce/60"
+                   placeholder="5" />
+          </div>
+
+          <div>
+            <label class="text-xs text-qikMuted">What did you like?</label>
+            <div class="mt-2 flex flex-wrap gap-2 text-[11px]">
+              <button class="tag px-3 py-2 rounded-full glass" data-tag="Understood style">Understood style</button>
+              <button class="tag px-3 py-2 rounded-full glass" data-tag="Good posing tips">Good posing tips</button>
+              <button class="tag px-3 py-2 rounded-full glass" data-tag="Fast delivery">Fast delivery</button>
+              <button class="tag px-3 py-2 rounded-full glass" data-tag="Great lighting">Great lighting</button>
+            </div>
+            <input id="tagInput" class="mt-2 w-full rounded-xl bg-white/5 border border-qikLine px-4 py-3 text-sm outline-none focus:border-qikIce/60"
+                   placeholder="Selected tags will appear here…" />
+          </div>
+
+          <div>
+            <label class="text-xs text-qikMuted">Comment (optional)</label>
+            <textarea id="comment" rows="4"
+                      class="mt-1 w-full rounded-xl bg-white/5 border border-qikLine px-4 py-3 text-sm outline-none focus:border-qikIce/60"
+                      placeholder="Short comment…"></textarea>
+          </div>
+
+          <button id="submit" class="mt-1 px-6 py-3 rounded-full btn-ice font-semibold transition disabled:opacity-40 disabled:cursor-not-allowed">
+            Submit Review
+          </button>
+
+          <p id="saved" class="hidden text-qikIce text-sm font-semibold">Review saved ✓</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    const KEY_REVIEWS = "qik_reviews_v1";
+    const KEY_PAYMENT = "qik_payment_v1";
+
+    const params = new URLSearchParams(location.search);
+    const photographer = params.get("photographer") || "Jordan Lee";
+    document.getElementById("name").textContent = photographer + " — Reviews";
+
+    const baseline = {
+      "Jordan Lee": [
+        {first:"Alicia", date:"2025-11-18", tag:"nightlife shoot", rating:5, comment:"Understood the vibe instantly. Fast, clean reels."},
+        {first:"Ben", date:"2025-10-30", tag:"cafe shoot", rating:5, comment:"Great macro shots and helpful direction."},
+        {first:"Cheryl", date:"2025-10-12", tag:"brunch menu", rating:4, comment:"Delivered on time and the lighting was solid."}
+      ],
+      "Amira Tan": [
+        {first:"Darren", date:"2025-11-02", tag:"gym reels", rating:5, comment:"Knows the angles and pacing for reels."},
+        {first:"Eve", date:"2025-10-20", tag:"PT shoot", rating:5, comment:"Very professional and efficient."},
+        {first:"Farid", date:"2025-10-01", tag:"class content", rating:5, comment:"High energy visuals, great transitions."}
+      ],
+      "Kenji Ono": [
+        {first:"Grace", date:"2025-11-05", tag:"watch shoot", rating:5, comment:"Macro shots were super crisp."},
+        {first:"Hugh", date:"2025-10-21", tag:"product drop", rating:4, comment:"Good styling and reflections handled well."},
+        {first:"Iris", date:"2025-10-03", tag:"flatlay", rating:5, comment:"Very aesthetic layout and fast turnaround."}
+      ]
+    };
+
+    function getUserReviews() {
+      const all = JSON.parse(localStorage.getItem(KEY_REVIEWS) || "[]");
+      return all.filter(r => r.photographer === photographer);
+    }
+
+    function render() {
+      const list = document.getElementById("list");
+      list.innerHTML = "";
+
+      const base = baseline[photographer] || baseline["Jordan Lee"];
+      const user = getUserReviews();
+
+      const merged = [...base, ...user].slice(-3).reverse();
+      merged.forEach(r => {
+        const box = document.createElement("div");
+        box.className = "rounded-2xl bg-white/5 border border-qikLine p-4";
+        box.innerHTML = `
+          <div class="flex items-center justify-between">
+            <div class="text-sm font-medium">${r.first || "Verified User"}</div>
+            <div class="text-qikIce text-sm font-semibold">${Number(r.rating).toFixed(0)}★</div>
+          </div>
+          <div class="text-[11px] text-qikMuted mt-1">${r.date || new Date(r.timestamp).toLocaleDateString()} • ${r.tag || "session"}</div>
+          <div class="text-xs text-qikText mt-2">${r.comment || ""}</div>
+        `;
+        list.appendChild(box);
+      });
+
+      const allRatings = [...base.map(x => x.rating), ...user.map(x => Number(x.rating))];
+      const avg = allRatings.reduce((a,b)=>a+b,0) / allRatings.length;
+      document.getElementById("avg").textContent = (Math.round(avg * 10) / 10).toFixed(1);
+    }
+
+    function checkGate() {
+      const payment = JSON.parse(localStorage.getItem(KEY_PAYMENT) || "null");
+      const can = payment?.status === "Payment Released";
+      const btn = document.getElementById("submit");
+      btn.disabled = !can;
+
+      document.getElementById("gate").textContent = can
+        ? "Verified session detected (payment released). You can submit a review."
+        : "To submit a review, complete the demo flow and release payment.";
+
+      return can;
+    }
+
+    const tagInput = document.getElementById("tagInput");
+    const selected = new Set();
+    document.querySelectorAll(".tag").forEach(b => {
+      b.addEventListener("click", () => {
+        const t = b.dataset.tag;
+        if (selected.has(t)) selected.delete(t); else selected.add(t);
+        tagInput.value = [...selected].join(", ");
+        b.classList.toggle("bg-white/10");
+      });
+    });
+
+    document.getElementById("submit").addEventListener("click", () => {
+      if (!checkGate()) return;
+
+      const rating = Number(document.getElementById("rating").value);
+      if (!rating || rating < 1 || rating > 5) {
+        alert("Please enter a rating from 1 to 5.");
+        return;
+      }
+
+      const userReview = {
+        photographer,
+        first: "Verified User",
+        date: new Date().toISOString().slice(0,10),
+        tag: (tagInput.value || "session").split(",")[0].trim(),
+        rating,
+        comment: (document.getElementById("comment").value || "").trim(),
+        timestamp: new Date().toISOString()
+      };
+
+      const all = JSON.parse(localStorage.getItem(KEY_REVIEWS) || "[]");
+      all.push(userReview);
+      localStorage.setItem(KEY_REVIEWS, JSON.stringify(all));
+
+      document.getElementById("saved").classList.remove("hidden");
+      setTimeout(()=>document.getElementById("saved").classList.add("hidden"), 1400);
+
+      render();
+    });
+
+    checkGate();
+    render();
+  </script>
+</body>
+</html>

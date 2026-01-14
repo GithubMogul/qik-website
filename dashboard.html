@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>QIK — Dashboard (Demo)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Inter','system-ui','sans-serif'], display: ['Poppins','system-ui','sans-serif'] },
+          colors: {
+            qikNavy:'#061338', qikCard:'#0B214F', qikLine:'rgba(255,255,255,.08)',
+            qikText:'#D6F0FF', qikMuted:'#A9D9FF', qikIce:'#BFE8FF', qikIce2:'#8ED5FF'
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body{
+      background:
+        radial-gradient(1100px 650px at 20% 10%, rgba(142,213,255,.16), transparent 55%),
+        radial-gradient(900px 500px at 80% 25%, rgba(191,232,255,.10), transparent 55%),
+        linear-gradient(180deg, #061338 0%, #061338 100%);
+    }
+    .glass{ background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.10); }
+    .btn-ice{ background:linear-gradient(135deg, rgba(191,232,255,.95), rgba(142,213,255,.95)); color:#04102C; }
+    .btn-ice:hover{ filter:brightness(1.03); transform:translateY(-1px); }
+    .btn-outline{ background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.14); }
+    .btn-outline:hover{ border-color:rgba(191,232,255,.55); background:rgba(255,255,255,.06); transform:translateY(-1px); }
+  </style>
+</head>
+
+<body class="text-qikText font-sans">
+  <header class="sticky top-0 z-30 backdrop-blur bg-qikNavy/70 border-b border-qikLine">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between">
+      <a href="qik.html#home" class="flex items-center gap-3">
+        <img src="Logo A10.jpg" class="w-10 h-10 rounded-2xl object-cover border border-white/10" alt="QIK logo">
+        <span class="font-display text-xl font-semibold tracking-tight">QIK</span>
+      </a>
+
+      <nav class="hidden md:flex items-center gap-6 text-sm text-qikMuted">
+        <a href="qik.html" class="hover:text-qikIce transition">Home</a>
+        <a href="chat.html" class="hover:text-qikIce transition">Mock Chat</a>
+        <a href="contract.html" class="hover:text-qikIce transition">Contract</a>
+        <a href="payment.html" class="hover:text-qikIce transition">Payment</a>
+        <a href="reviews.html?photographer=Jordan%20Lee" class="hover:text-qikIce transition">Reviews</a>
+        <span class="text-qikIce font-medium">Dashboard</span>
+      </nav>
+
+      <button id="clear" class="text-xs sm:text-sm px-4 py-2 rounded-full btn-outline transition">
+        Clear Demo Data
+      </button>
+    </div>
+  </header>
+
+  <main class="max-w-6xl mx-auto px-4 sm:px-6 py-10">
+    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+      <div>
+        <h1 class="font-display text-3xl sm:text-4xl font-semibold">Dashboard (Demo)</h1>
+        <p class="text-sm text-qikMuted mt-1">Session history from contract + escrow + reviews.</p>
+      </div>
+
+      <div class="flex gap-2 text-[11px]">
+        <div class="px-3 py-1 rounded-full glass" id="chipC">Contract: —</div>
+        <div class="px-3 py-1 rounded-full glass" id="chipP">Payment: —</div>
+      </div>
+    </div>
+
+    <div class="mt-8 grid lg:grid-cols-3 gap-6">
+      <div class="rounded-3xl bg-qikCard/55 border border-qikLine p-6 lg:col-span-2 shadow-2xl shadow-black/60">
+        <div class="flex items-center justify-between">
+          <h2 class="font-display text-xl font-semibold">Latest Contract</h2>
+          <a href="contract.html" class="text-xs px-3 py-2 rounded-full btn-outline transition">Open</a>
+        </div>
+
+        <div id="contractBox" class="mt-4 rounded-2xl bg-white/5 border border-qikLine p-4 text-sm text-qikText">
+          No contract yet. Start in <a class="text-qikIce underline" href="chat.html">Mock Chat</a>.
+        </div>
+      </div>
+
+      <div class="rounded-3xl bg-qikCard/55 border border-qikLine p-6 shadow-2xl shadow-black/60">
+        <div class="flex items-center justify-between">
+          <h2 class="font-display text-xl font-semibold">Escrow Status</h2>
+          <a href="payment.html" class="text-xs px-3 py-2 rounded-full btn-outline transition">Payment</a>
+        </div>
+
+        <div id="paymentBox" class="mt-4 rounded-2xl bg-white/5 border border-qikLine p-4 text-sm text-qikText">
+          Payment Pending.
+        </div>
+
+        <div class="mt-4 flex flex-col gap-2">
+          <a href="chat.html" class="text-xs px-4 py-3 rounded-full btn-ice font-semibold transition text-center">Continue in Chat</a>
+          <a href="reviews.html?photographer=Jordan%20Lee" class="text-xs px-4 py-3 rounded-full btn-outline transition text-center">View Reviews</a>
+        </div>
+      </div>
+
+      <div class="rounded-3xl bg-qikCard/55 border border-qikLine p-6 lg:col-span-3 shadow-2xl shadow-black/60">
+        <div class="flex items-center justify-between">
+          <h2 class="font-display text-xl font-semibold">Recent Reviews (Jordan Lee)</h2>
+          <a href="reviews.html?photographer=Jordan%20Lee" class="text-xs px-3 py-2 rounded-full btn-outline transition">Open</a>
+        </div>
+
+        <div id="reviewsRow" class="mt-4 grid md:grid-cols-3 gap-3"></div>
+        <p class="text-[11px] text-qikMuted mt-3">User-submitted reviews appear after payment is released (demo gate).</p>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    const KEY_CONTRACT = "qik_contract_v1";
+    const KEY_PAYMENT  = "qik_payment_v1";
+    const KEY_REVIEWS  = "qik_reviews_v1";
+
+    const chipC = document.getElementById("chipC");
+    const chipP = document.getElementById("chipP");
+
+    function render() {
+      const contract = JSON.parse(localStorage.getItem(KEY_CONTRACT) || "null");
+      const payment = JSON.parse(localStorage.getItem(KEY_PAYMENT) || "null");
+      const userReviews = JSON.parse(localStorage.getItem(KEY_REVIEWS) || "[]")
+        .filter(r => r.photographer === "Jordan Lee")
+        .slice(-3)
+        .reverse();
+
+      chipC.textContent = "Contract: " + (contract?.status || "None");
+      chipP.textContent = "Payment: " + (payment?.status || "Pending");
+
+      const cBox = document.getElementById("contractBox");
+      if (!contract) {
+        cBox.innerHTML = `No contract yet. Start in <a class="text-qikIce underline" href="chat.html">Mock Chat</a>.`;
+      } else {
+        cBox.innerHTML = `
+          <div class="text-xs text-qikMuted mb-2">Contract ID: <span class="text-qikText font-semibold">${contract.id}</span></div>
+          <div class="text-sm"><span class="text-qikMuted">Client:</span> ${contract.client}</div>
+          <div class="text-sm"><span class="text-qikMuted">Photographer:</span> ${contract.photographer}</div>
+          <div class="text-xs text-qikMuted mt-3">Details</div>
+          <pre class="mt-1 text-[12px] text-qikText whitespace-pre-wrap">${contract.details}</pre>
+          <div class="text-[11px] text-qikMuted mt-3">Signed: ${new Date(contract.signed.timestamp).toLocaleString()}</div>
+        `;
+      }
+
+      const pBox = document.getElementById("paymentBox");
+      if (!payment) {
+        pBox.textContent = "Payment Pending. Complete checkout to hold in escrow.";
+      } else {
+        pBox.innerHTML = `
+          <div class="text-sm"><span class="text-qikMuted">Status:</span> <span class="font-semibold text-qikIce">${payment.status}</span></div>
+          <div class="text-sm"><span class="text-qikMuted">Amount:</span> $${payment.amount}</div>
+          <div class="text-sm"><span class="text-qikMuted">Method:</span> ${payment.method}</div>
+          <div class="text-[11px] text-qikMuted mt-2">${payment.note || ""}</div>
+        `;
+      }
+
+      const rRow = document.getElementById("reviewsRow");
+      rRow.innerHTML = "";
+      const baseline = [
+        {first:"Alicia", date:"2025-11-18", tag:"nightlife shoot", rating:5, comment:"Understood the vibe instantly. Fast, clean reels."},
+        {first:"Ben", date:"2025-10-30", tag:"cafe shoot", rating:5, comment:"Great macro shots and helpful direction."},
+        {first:"Cheryl", date:"2025-10-12", tag:"brunch menu", rating:4, comment:"Delivered on time and the lighting was solid."}
+      ];
+
+      const merged = [...baseline, ...userReviews].slice(-3).reverse();
+      merged.forEach(r => {
+        const el = document.createElement("div");
+        el.className = "rounded-2xl bg-white/5 border border-qikLine p-4";
+        el.innerHTML = `
+          <div class="flex items-center justify-between">
+            <div class="text-sm font-medium">${r.first}</div>
+            <div class="text-qikIce text-sm font-semibold">${r.rating}★</div>
+          </div>
+          <div class="text-[11px] text-qikMuted mt-1">${r.date} • ${r.tag}</div>
+          <div class="text-xs text-qikText mt-2">${r.comment}</div>
+        `;
+        rRow.appendChild(el);
+      });
+    }
+
+    document.getElementById("clear").addEventListener("click", () => {
+      localStorage.removeItem(KEY_CONTRACT);
+      localStorage.removeItem(KEY_PAYMENT);
+      localStorage.removeItem(KEY_REVIEWS);
+      localStorage.removeItem("qik_pending_details_v1");
+      location.reload();
+    });
+
+    render();
+  </script>
+</body>
+</html>

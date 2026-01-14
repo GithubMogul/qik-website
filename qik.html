@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>QIK – Capture Content in a QIK</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+            display: ['Poppins', 'system-ui', 'sans-serif'],
+          },
+          colors: {
+            qikNavy:   '#061338',   // logo-like deep navy
+            qikNavy2:  '#081B4B',   // slightly brighter navy
+            qikCard:   '#0B214F',   // card base
+            qikLine:   'rgba(255,255,255,.08)',
+            qikText:   '#D6F0FF',   // icy light blue (primary text)
+            qikMuted:  '#A9D9FF',   // secondary text
+            qikIce:    '#BFE8FF',   // brand highlight
+            qikIce2:   '#8ED5FF',   // accent
+            qikSpark:  '#FFFFFF'    // sparkle white
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    :root{
+      --navy:#061338;
+      --ice:#BFE8FF;
+      --ice2:#8ED5FF;
+      --spark:#FFFFFF;
+    }
+
+    body{
+      background:
+        radial-gradient(1200px 600px at 15% 10%, rgba(142,213,255,.18), transparent 55%),
+        radial-gradient(900px 500px at 80% 20%, rgba(191,232,255,.12), transparent 55%),
+        radial-gradient(900px 700px at 70% 90%, rgba(142,213,255,.10), transparent 55%),
+        linear-gradient(180deg, #061338 0%, #061338 100%);
+    }
+
+    .glass{
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.10);
+    }
+
+    .btn-ice{
+      background: linear-gradient(135deg, rgba(191,232,255,.95), rgba(142,213,255,.95));
+      color:#04102C;
+      box-shadow: 0 18px 50px rgba(142,213,255,.18);
+    }
+
+    .btn-ice:hover{ filter: brightness(1.03); transform: translateY(-1px); }
+
+    .btn-outline{
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.14);
+    }
+    .btn-outline:hover{
+      border-color: rgba(191,232,255,.55);
+      background: rgba(255,255,255,.06);
+      transform: translateY(-1px);
+    }
+
+    .reveal{ opacity:0; transform:translateY(12px); transition: all .7s ease; }
+    .reveal.show{ opacity:1; transform:translateY(0); }
+
+    @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-7px)} }
+    @keyframes twinkle { 0%,100%{opacity:.25; transform:scale(.95)} 50%{opacity:.55; transform:scale(1.05)} }
+
+    .twinkle{
+      width: 10px; height: 10px;
+      background: radial-gradient(circle, rgba(255,255,255,.95), rgba(255,255,255,0) 70%);
+      filter: drop-shadow(0 0 14px rgba(255,255,255,.35));
+      border-radius: 999px;
+      animation: twinkle 3.2s ease-in-out infinite;
+    }
+  </style>
+</head>
+
+<body class="text-qikText font-sans">
+  <!-- NAV -->
+  <header class="sticky top-0 z-30 backdrop-blur bg-qikNavy/70 border-b border-qikLine">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between">
+      <a href="#home" class="flex items-center gap-3">
+        <img src="Logo A10.jpg" alt="QIK logo" class="w-10 h-10 rounded-2xl object-cover border border-white/10" />
+        <span class="font-display text-xl font-semibold tracking-tight">QIK</span>
+      </a>
+
+      <nav class="hidden md:flex items-center gap-5 text-sm text-qikMuted">
+        <a href="#home" class="hover:text-qikIce transition">Home</a>
+        <a href="#how" class="hover:text-qikIce transition">How it works</a>
+        <a href="#portfolio" class="hover:text-qikIce transition">Portfolio</a>
+        <a href="#pricing" class="hover:text-qikIce transition">Pricing</a>
+        <a href="#faq" class="hover:text-qikIce transition">FAQ</a>
+        <a href="for-creators.html" class="hover:text-qikIce transition">For Creators</a>
+        <a href="for-photographers.html" class="hover:text-qikIce transition">For Photographers</a>
+        <a href="chat.html" class="hover:text-qikIce transition">Mock Chat</a>
+        <a href="dashboard.html" class="hover:text-qikIce transition">Dashboard</a>
+      </nav>
+
+      <a href="chat.html"
+         class="text-xs sm:text-sm px-4 py-2 rounded-full btn-ice font-semibold transition">
+        Try Demo Flow
+      </a>
+    </div>
+  </header>
+
+  <main class="max-w-6xl mx-auto px-4 sm:px-6">
+    <!-- HERO -->
+    <section id="home" class="py-14 sm:py-20 grid lg:grid-cols-2 gap-10 items-center">
+      <div class="reveal">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full glass text-xs mb-5 text-qikMuted">
+          <span class="twinkle"></span>
+          <span>On-demand content creation • Mock demo</span>
+        </div>
+
+        <h1 class="font-display text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight">
+          Capture content<br class="hidden sm:block" />
+          <span class="bg-gradient-to-r from-qikIce to-qikIce2 bg-clip-text text-transparent">in a QIK.</span>
+        </h1>
+
+        <p class="mt-4 text-sm sm:text-base text-qikMuted max-w-xl">
+          Instantly book photographers and videographers for reels, menus, fitness shoots and product drops — without chasing DMs.
+        </p>
+
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a href="for-creators.html"
+             class="px-6 py-3 rounded-full btn-ice text-sm font-semibold transition">
+            For Creators
+          </a>
+          <a href="for-photographers.html"
+             class="px-6 py-3 rounded-full btn-outline text-sm font-medium transition">
+            For Photographers
+          </a>
+          <a href="chat.html"
+             class="px-6 py-3 rounded-full btn-outline text-sm font-semibold transition">
+            Run the demo flow
+          </a>
+        </div>
+
+        <div class="mt-8 grid grid-cols-3 gap-3 max-w-md text-xs sm:text-sm">
+          <div class="rounded-2xl bg-qikCard/60 border border-qikLine p-3 transition transform hover:-translate-y-1 hover:shadow-xl hover:shadow-black/40">
+            <div class="font-display text-lg sm:text-xl font-semibold">10 min</div>
+            <div class="text-qikMuted text-xs">Avg matching time</div>
+          </div>
+          <div class="rounded-2xl bg-qikCard/60 border border-qikLine p-3 transition transform hover:-translate-y-1 hover:shadow-xl hover:shadow-black/40">
+            <div class="font-display text-lg sm:text-xl font-semibold">Escrow</div>
+            <div class="text-qikMuted text-xs">Pay only when happy</div>
+          </div>
+          <div class="rounded-2xl bg-qikCard/60 border border-qikLine p-3 transition transform hover:-translate-y-1 hover:shadow-xl hover:shadow-black/40">
+            <div class="font-display text-lg sm:text-xl font-semibold">4.9★</div>
+            <div class="text-qikMuted text-xs">Avg creator rating</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="relative animate-[float_6s_ease-in-out_infinite] reveal">
+        <div class="absolute -inset-10 bg-gradient-to-tr from-qikIce/20 via-qikIce2/10 to-transparent blur-3xl opacity-80"></div>
+
+        <div class="relative rounded-3xl bg-qikCard/55 border border-qikLine shadow-2xl shadow-black/60 p-5">
+          <div class="flex items-center justify-between mb-4 text-xs text-qikMuted">
+            <span>QIK • Demo Preview</span>
+            <span class="px-2 py-1 rounded-full glass text-[10px]">Mock</span>
+          </div>
+
+          <div class="rounded-2xl bg-white/5 border border-qikLine p-4 mb-3">
+            <div class="flex items-center justify-between text-xs">
+              <span class="text-qikText font-medium">Cafe Reel Shoot</span>
+              <span class="text-qikIce font-semibold">$180</span>
+            </div>
+            <div class="text-[11px] text-qikMuted mt-1 flex justify-between">
+              <span>Bugis • 1.5h</span>
+              <span>Matched in 9 mins</span>
+            </div>
+          </div>
+
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-qikIce to-qikIce2 flex items-center justify-center text-xs font-semibold text-[#04102C]">
+              JL
+            </div>
+            <div class="flex-1">
+              <div class="text-sm font-medium">Jordan Lee</div>
+              <div class="text-[11px] text-qikMuted">Food & lifestyle • 4.9★</div>
+            </div>
+            <a href="chat.html" class="text-[11px] px-3 py-2 rounded-full btn-outline font-semibold transition">
+              Open Chat
+            </a>
+          </div>
+
+          <div class="mt-4 grid grid-cols-3 gap-2 text-[10px] text-qikMuted">
+            <span class="px-2 py-1 rounded-full glass text-center">Contract</span>
+            <span class="px-2 py-1 rounded-full glass text-center">Escrow</span>
+            <span class="px-2 py-1 rounded-full glass text-center">Reviews</span>
+          </div>
+
+          <div class="mt-4 text-[10px] text-qikMuted">
+            Demo path: Chat → Contract → Payment → Release → Review → Dashboard
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- HOW -->
+    <section id="how" class="py-14 border-t border-qikLine">
+      <div class="reveal">
+        <h2 class="font-display text-3xl sm:text-4xl font-semibold tracking-tight mb-2">How QIK works</h2>
+        <p class="text-sm sm:text-base text-qikMuted mb-8">From idea to final shots in three steps.</p>
+
+        <div class="grid md:grid-cols-3 gap-6">
+          <div class="rounded-2xl bg-qikCard/45 border border-qikLine p-5 transition transform hover:-translate-y-1 hover:shadow-xl hover:shadow-black/40">
+            <div class="w-8 h-8 rounded-full glass text-qikIce flex items-center justify-center text-sm font-semibold">1</div>
+            <h3 class="mt-3 font-medium text-lg">Create a request</h3>
+            <p class="text-sm text-qikMuted">Time, location, vibe, budget, add-ons.</p>
+          </div>
+          <div class="rounded-2xl bg-qikCard/45 border border-qikLine p-5 transition transform hover:-translate-y-1 hover:shadow-xl hover:shadow-black/40">
+            <div class="w-8 h-8 rounded-full glass text-qikIce flex items-center justify-center text-sm font-semibold">2</div>
+            <h3 class="mt-3 font-medium text-lg">Chat & confirm</h3>
+            <p class="text-sm text-qikMuted">Agree details in chat, then auto-generate a contract.</p>
+          </div>
+          <div class="rounded-2xl bg-qikCard/45 border border-qikLine p-5 transition transform hover:-translate-y-1 hover:shadow-xl hover:shadow-black/40">
+            <div class="w-8 h-8 rounded-full glass text-qikIce flex items-center justify-center text-sm font-semibold">3</div>
+            <h3 class="mt-3 font-medium text-lg">Escrow + review</h3>
+            <p class="text-sm text-qikMuted">Payment held until satisfied. Reviews build trust.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PORTFOLIO -->
+    <section id="portfolio" class="py-14 border-t border-qikLine">
+      <div class="reveal flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
+        <div>
+          <h2 class="font-display text-3xl sm:text-4xl font-semibold tracking-tight mb-2">Creator portfolio gallery</h2>
+          <p class="text-sm text-qikMuted">Click a card to open mock reviews.</p>
+        </div>
+
+        <div class="flex flex-wrap gap-2 text-xs">
+          <button data-filter="all" class="pf px-3 py-1 rounded-full glass text-qikText">All</button>
+          <button data-filter="food" class="pf px-3 py-1 rounded-full btn-outline text-qikMuted">Food</button>
+          <button data-filter="fitness" class="pf px-3 py-1 rounded-full btn-outline text-qikMuted">Fitness</button>
+          <button data-filter="products" class="pf px-3 py-1 rounded-full btn-outline text-qikMuted">Products</button>
+        </div>
+      </div>
+
+      <div class="mt-8 grid md:grid-cols-3 gap-6 reveal">
+        <article data-category="food" class="pc rounded-2xl bg-qikCard/50 border border-qikLine overflow-hidden group transition transform hover:-translate-y-1 hover:shadow-2xl hover:shadow-black/50">
+          <div class="h-40 bg-gradient-to-tr from-qikIce/20 via-qikIce2/10 to-transparent"></div>
+          <div class="p-4">
+            <div class="flex items-center justify-between">
+              <h3 class="font-medium text-sm">Jordan Lee</h3>
+              <span class="text-[11px] text-qikMuted">Food • 4.9★</span>
+            </div>
+            <p class="text-xs text-qikMuted mt-2">Cafe reels, brunch menus, nightlife content.</p>
+            <div class="mt-3 flex gap-2">
+              <a href="reviews.html?photographer=Jordan%20Lee" class="text-[11px] px-3 py-2 rounded-full btn-outline transition">View Reviews</a>
+              <a href="chat.html" class="text-[11px] px-3 py-2 rounded-full btn-ice font-semibold transition">Chat</a>
+            </div>
+          </div>
+        </article>
+
+        <article data-category="fitness" class="pc rounded-2xl bg-qikCard/50 border border-qikLine overflow-hidden group transition transform hover:-translate-y-1 hover:shadow-2xl hover:shadow-black/50">
+          <div class="h-40 bg-gradient-to-tr from-qikIce2/18 via-qikIce/10 to-transparent"></div>
+          <div class="p-4">
+            <div class="flex items-center justify-between">
+              <h3 class="font-medium text-sm">Amira Tan</h3>
+              <span class="text-[11px] text-qikMuted">Fitness • 5.0★</span>
+            </div>
+            <p class="text-xs text-qikMuted mt-2">High-energy gym reels, transformations, PT shoots.</p>
+            <div class="mt-3 flex gap-2">
+              <a href="reviews.html?photographer=Amira%20Tan" class="text-[11px] px-3 py-2 rounded-full btn-outline transition">View Reviews</a>
+              <a href="chat.html" class="text-[11px] px-3 py-2 rounded-full btn-ice font-semibold transition">Chat</a>
+            </div>
+          </div>
+        </article>
+
+        <article data-category="products" class="pc rounded-2xl bg-qikCard/50 border border-qikLine overflow-hidden group transition transform hover:-translate-y-1 hover:shadow-2xl hover:shadow-black/50">
+          <div class="h-40 bg-gradient-to-tr from-qikIce/16 via-white/5 to-transparent"></div>
+          <div class="p-4">
+            <div class="flex items-center justify-between">
+              <h3 class="font-medium text-sm">Kenji Ono</h3>
+              <span class="text-[11px] text-qikMuted">Products • 4.8★</span>
+            </div>
+            <p class="text-xs text-qikMuted mt-2">Macro lighting, watches, jewellery, product hero shots.</p>
+            <div class="mt-3 flex gap-2">
+              <a href="reviews.html?photographer=Kenji%20Ono" class="text-[11px] px-3 py-2 rounded-full btn-outline transition">View Reviews</a>
+              <a href="chat.html" class="text-[11px] px-3 py-2 rounded-full btn-ice font-semibold transition">Chat</a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- PRICING -->
+    <section id="pricing" class="py-14 border-t border-qikLine">
+      <div class="reveal">
+        <h2 class="font-display text-3xl sm:text-4xl font-semibold tracking-tight mb-2">Pricing (demo)</h2>
+        <p class="text-sm text-qikMuted mb-8">Illustrative only, for mockup.</p>
+
+        <div class="grid md:grid-cols-3 gap-6">
+          <div class="rounded-2xl bg-qikCard/50 border border-qikLine p-6 transition transform hover:-translate-y-1 hover:shadow-2xl hover:shadow-black/50">
+            <div class="text-xs text-qikMuted">Starter</div>
+            <div class="text-3xl font-display font-semibold mt-2">$99</div>
+            <ul class="mt-4 text-xs text-qikMuted space-y-2">
+              <li>• 1 hour shoot</li>
+              <li>• 10–15 edited photos</li>
+              <li>• 1 revision</li>
+            </ul>
+            <a href="chat.html" class="mt-5 inline-block text-xs px-4 py-2 rounded-full btn-outline transition">Start in Chat</a>
+          </div>
+
+          <div class="rounded-2xl bg-gradient-to-b from-qikIce/18 to-qikCard/60 border border-qikIce/30 p-6 shadow-xl shadow-black/50">
+            <div class="text-xs text-qikIce font-semibold">Most popular</div>
+            <div class="text-3xl font-display font-semibold mt-2">$249</div>
+            <ul class="mt-4 text-xs text-qikMuted space-y-2">
+              <li>• 3 hour shoot</li>
+              <li>• Photos + reels</li>
+              <li>• Priority matching</li>
+            </ul>
+            <a href="chat.html" class="mt-5 inline-block text-xs px-4 py-2 rounded-full btn-ice font-semibold transition">Run Demo Flow</a>
+          </div>
+
+          <div class="rounded-2xl bg-qikCard/50 border border-qikLine p-6 transition transform hover:-translate-y-1 hover:shadow-2xl hover:shadow-black/50">
+            <div class="text-xs text-qikMuted">Campaign</div>
+            <div class="text-3xl font-display font-semibold mt-2">Custom</div>
+            <ul class="mt-4 text-xs text-qikMuted space-y-2">
+              <li>• Monthly plans</li>
+              <li>• Multi-location</li>
+              <li>• Dedicated pool</li>
+            </ul>
+            <a href="mailto:qik.network@gmail.com" class="mt-5 inline-block text-xs px-4 py-2 rounded-full btn-outline transition">Contact</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" class="py-14 border-t border-qikLine">
+      <div class="max-w-3xl mx-auto reveal">
+        <h2 class="font-display text-3xl sm:text-4xl font-semibold tracking-tight mb-2">FAQ</h2>
+        <p class="text-sm text-qikMuted mb-6">Common questions for the mockup.</p>
+
+        <div class="space-y-3">
+          <div class="rounded-2xl bg-qikCard/45 border border-qikLine overflow-hidden">
+            <button class="faq-toggle w-full flex items-center justify-between px-4 py-3 text-qikText">
+              <span>How do I try the contract + escrow flow?</span><span class="text-xs text-qikMuted">+</span>
+            </button>
+            <div class="faq-answer px-4 pb-4 text-xs text-qikMuted hidden">
+              Go to <a class="text-qikIce underline" href="chat.html">Mock Chat</a> and click “Confirm Booking”. It generates a smart contract, then checkout, then release + review.
+            </div>
+          </div>
+
+          <div class="rounded-2xl bg-qikCard/45 border border-qikLine overflow-hidden">
+            <button class="faq-toggle w-full flex items-center justify-between px-4 py-3 text-qikText">
+              <span>I’m a photographer. How do I join QIK?</span><span class="text-xs text-qikMuted">+</span>
+            </button>
+            <div class="faq-answer px-4 pb-4 text-xs text-qikMuted hidden">
+              Tap “Apply as a QIK photographer” on the photographers page.
+            </div>
+          </div>
+
+          <div class="rounded-2xl bg-qikCard/45 border border-qikLine overflow-hidden">
+            <button class="faq-toggle w-full flex items-center justify-between px-4 py-3 text-qikText">
+              <span>How can I contact the team?</span><span class="text-xs text-qikMuted">+</span>
+            </button>
+            <div class="faq-answer px-4 pb-4 text-xs text-qikMuted hidden">
+              Email <a class="text-qikIce underline" href="mailto:qik.network@gmail.com">qik.network@gmail.com</a>.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="border-t border-qikLine mt-8">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-qikMuted">
+      <div>© <span id="year"></span> QIK. All rights reserved. (Mockup only)</div>
+      <div class="flex gap-4">
+        <a href="chat.html" class="hover:text-qikIce">Mock Chat</a>
+        <a href="dashboard.html" class="hover:text-qikIce">Dashboard</a>
+        <a href="mailto:qik.network@gmail.com" class="hover:text-qikIce">qik.network@gmail.com</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // FAQ accordion
+    document.querySelectorAll('.faq-toggle').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const ans = btn.nextElementSibling;
+        const open = !ans.classList.contains('hidden');
+        document.querySelectorAll('.faq-answer').forEach(a => a.classList.add('hidden'));
+        if (!open) ans.classList.remove('hidden');
+      });
+    });
+
+    // Portfolio filters
+    const pf = document.querySelectorAll('.pf');
+    const pcs = document.querySelectorAll('.pc');
+    pf.forEach(b => b.addEventListener('click', () => {
+      const f = b.dataset.filter;
+      pf.forEach(x => x.className = "pf px-3 py-1 rounded-full btn-outline text-qikMuted");
+      b.className = "pf px-3 py-1 rounded-full glass text-qikText";
+      pcs.forEach(c => {
+        const cat = c.dataset.category;
+        c.classList.toggle('hidden', !(f === 'all' || cat === f));
+      });
+    }));
+    const allBtn = document.querySelector('.pf[data-filter="all"]');
+    if (allBtn) allBtn.click();
+
+    // Motion: reveal on scroll
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => e.isIntersecting && e.target.classList.add('show'));
+    }, { threshold: 0.15 });
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+  </script>
+</body>
+</html>
